@@ -47,7 +47,7 @@ func (s *server) SayEmpty(ctx context.Context, in *pb.Empty) (*pb.Empty, error) 
 
 // SaySomething implements hellobench.GreeterServer
 func (s *server) SaySomething(ctx context.Context, in *pb.Something) (*pb.Something, error) {
-	return &pb.Something{text: "some reply string"}, nil
+	return &pb.Something{Text: "some reply string"}, nil
 }
 
 func main() {

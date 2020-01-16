@@ -1,5 +1,44 @@
 This package contains naive implementation of benchmarks for [tonic](https://docs.rs/tonic/0.1.0/tonic/index.html)
 
+# Test with ghz
+
+```
+ghz  --insecure --proto proto/hellobench.proto --call hellobench.Greeter.SayEmpty -d '{}' -n 100000 -c 16 --connections=4 localhost:50051
+```
+```
+Summary:
+  Count:        100000
+  Total:        6.26 s
+  Slowest:      100.07 ms
+  Fastest:      0.16 ms
+  Average:      0.96 ms
+  Requests/sec: 15984.89
+```
+
+## Compile and run go version
+
+```
+cd go
+go build server.go
+server
+```
+
+> Go version will start on port 50050, so above ghz should be amended:
+
+```
+ghz  --insecure --proto proto/hellobench.proto --call hellobench.Greeter.SayEmpty -d '{}' -n 100000 -c 16 --connections=4 localhost:50051
+```
+```
+Summary:
+  Count:        100000
+  Total:        4.57 s
+  Slowest:      14.45 ms
+  Fastest:      0.11 ms
+  Average:      0.67 ms
+  Requests/sec: 21890.10
+```
+
+
 # Run load test
 
 ```
