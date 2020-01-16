@@ -26,7 +26,7 @@ import (
 	"log"
 	"net"
 
-	pb "github.com/dunnock/tonic-bench/go/hellobench"
+	pb "github.com/dunnock/tonic-bench/proto"
 
 	"google.golang.org/grpc"
 )
