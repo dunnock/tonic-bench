@@ -14,8 +14,8 @@ struct Opt {
     #[structopt(long="connections", default_value="1")]
     connections: usize,
     /// Number of parallel requests per connection
-    #[structopt(short="c", long="concurency", default_value="10")]
-    concurency: usize,
+    #[structopt(short="c", long="concurrency", default_value="10")]
+    concurrency: usize,
     /// Send amount of messages in every connection
     /// multiplied by num of connections
     #[structopt(short="m", long="messages", default_value="10000")]
@@ -81,7 +81,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     for client in clients.drain(..) {
         let request = opt.request.clone();
         // number of concurrent stream for single connection
-        let concur = opt.concurency;
+        let concur = opt.concurrency;
         // number of messages should be sent in every stream
         let msgs = opt.messages;
         let make_request = move |_| {

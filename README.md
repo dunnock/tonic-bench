@@ -3,6 +3,13 @@ This package contains naive implementation of benchmarks for [tonic](https://doc
 # Test with ghz
 
 ```
+cargo run --bin=server --release
+```
+
+> Rust version will start on port 50051
+
+
+```
 ghz  --insecure --proto proto/hellobench.proto --call hellobench.Greeter.SayEmpty -d '{}' -n 100000 -c 16 --connections=4 localhost:50051
 ```
 ```
@@ -39,30 +46,29 @@ Summary:
 ```
 
 
-# Run load test
+# Test with Rust client
 
-```
-cargo run --bin=server --release
-```
 
 Load with empty request/response
 
 ```
-cargo run --bin=client --release -- -m=100000 -c=4
+target/release/client --connections=4 --concurency=8 --request=Empty --messages=100000 --port=50051
 ```
 ```
-Elapsed: 2632ms
-processed 40000 with 15198 rps
+Elapsed: 20022ms
+processed 400000 with 19978 rps
+successful 400000 failed 0 requests
 ```
 
 OR Load with string request/response
 
 ```
-cargo run --bin=client --release -- -c=4 -m=100000 -r=Something
+target/release/client --connections=4 --concurency=8 --request=Something --messages=100000 --port=50051
 ```
 ```
-Elapsed: 4264ms
-processed 40000 with 9381 rps
+Elapsed: 22059ms
+processed 400000 with 18133 rps
+successful 400000 failed 0 requests
 ```
 
 # Run with flamegraph
@@ -71,7 +77,7 @@ processed 40000 with 9381 rps
 sudo flamegraph target/release/server
 ```
 
-![Server flamegraph with string request/response](https://raw.githubusercontent.com/dunnock/tonic-bench/master/flamegraph-server-something.svg?sanitize=true)
+![Server flamegraph with string request/response](https://raw.githubusercontent.com/dunnock/tonic-bench/master/flamegraph-server-empty.svg?sanitize=true)
 
 
 # Comparison with plain text hyper http
